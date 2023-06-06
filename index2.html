@@ -1,46 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <div class id="app">
+            <form action v-on:submit.prevent="addPaises()">
 
-    <div class="" id="app">
+                <input type="text" v-model="name">
+                <br>
+                <br>
 
-<form action="" v-on:submit.prevent="addPaises()">
-    <input type="text" v-model="name">
-    <button >Agregar</button>
+                <input type="text" v-model="capital">
 
-</form>
+                <button>Agregar</button>
+            </form>
 
+            <ul>
 
-{{paises}}
-        <!-- <p>Hola!!! {{name}}</p> -->
+                <template v-for="(pais, index) in paises">
+                    <li  :key="pais.name">
 
+                        {{index +1}} - {{pais.name}} - {{pais.capital}}
+    
+                    </li>
 
-    </div>
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+                </template>
+                
+            </ul>
+            <!-- <p>Hola!!! {{name}}</p> -->
+        </div>
+        <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-    <script>
+        <script>
         Vue.createApp({
             data(){
                 return {
                     name: "",
-                    paises: ['PERU', 'BOLIVIA']                
+                    capital: "",
+                    paises: [
+                    {
+                        name:"Peru",
+                        capital: "Lima"
+                    },
+                    {
+                        name: "Bolivia",
+                        capital: "Sucre"
+                    }     
+                ]                
                 }
             },
             methods:{
                 addPaises(){
-                    this.paises.push(this.name)
-
+                    this.paises.push(
+                        {
+                            name: this.name,
+                            capital: this.capital
+                        }
+                    )
+                    this.capital="",
                     this.name=""
                 }
             }
-           
         }).mount('#app');
     </script>
-</body>
+    </body>
 </html>
